@@ -12,6 +12,7 @@ class ApplicationController < Sinatra::Base
 
 
   get '/' do
+    # session[:user_id]=nil
     erb :index
   end
 

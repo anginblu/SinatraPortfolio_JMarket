@@ -1,0 +1,21 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+<h1>Add a new product</h1>
+
+<form action="/products" method="POST">
+
+  <label> Product Name </label>
+  <input type="text" name="product_name"> </br>
+
+  <label> Product Price </label>
+  $ <input type="number" name="price"> </br>
+
+  <label> Which Store does this belong in? </label>
+  <% current_user.stores.each do |store| %>
+    <input type="checkbox" name="store" value="<%=store.id%>" ><%=store.name%></input>
+  <% end %>
+
+  <input class="btn btn-primary" type="submit" value="create">
+</form>

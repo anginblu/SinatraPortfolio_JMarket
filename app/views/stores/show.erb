@@ -1,0 +1,23 @@
+<h2>Welcome to <%= @store.name %> store!</h2>
+
+<% if logged_in? && current_user == @store.user %>
+  <a href="/stores/<%=@store.id%>/edit">Click to edit your store, <%= @store.name %></a> <br>
+  <a href="/stores/<%=@store.id%>/delete">Click to close your store, <%= @store.name %></a> <br>
+<%end%>
+
+<% if logged_in? && current_user == @store.user %>
+  <form action="/products/new" method="post">
+    Click to add a new product to this store, <input class="btn btn-primary" type="submit" name="store" value="<%=@store.name%>">
+  </form>
+<%end%>
+
+<% if !@store.products.empty?%>
+  <h4>Products in this store:</h4>
+  <% @store.products.each do |product| %>
+    <li><a href="/products/<%=product.id%>"><%= product.name %>, $<%= product.price %></a><br>
+    <% if logged_in? && current_user == @store.user %>
+      <a href="/products/<%=product.id%>/edit">Click to edit <%= product.name %></a><br>
+      <a href="/products/<%=product.id%>/delete">Click to delete <%= product.name %></a><br>
+    <%end%></li>
+  <%end%>
+<%end%>

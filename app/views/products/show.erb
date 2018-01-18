@@ -1,0 +1,8 @@
+<h2><%= @product.name %>, $<%= @product.price %></h2>
+<h3>sold at: <a href="/stores/<%=@product.store.id%>"><%= @product.store.name %></a><br>
+</h3>
+
+<% if @product.store.user == current_user %>
+  <a href="/products/<%=@product.id%>/edit">Edit this product</a><br>
+  <a href="/products/<%=@product.id%>/delete">Delete this product</a>
+<% end %>

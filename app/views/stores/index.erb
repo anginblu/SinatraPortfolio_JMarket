@@ -1,0 +1,17 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+<h4>List of all stores in this site</h4>
+<ul>
+  <% Store.all.each do |store| %>
+    <li>
+    <a href="/stores/<%=store.id%>"><%= store.name %></a> <br>
+    </li>
+  <% end %>
+</ul>
+
+<br>
+<% if logged_in?%>
+  <a href="/stores/new">Click to create a new store</a>
+<%end%>
