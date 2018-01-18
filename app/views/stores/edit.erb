@@ -1,0 +1,12 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+<h1>Edit <%= @store.name %></h1>
+
+<h3>
+<form action="/stores/<%=@store.id %>" method="POST">
+    <input type="text" name="name" value="<%=@store.name %>" placeholder="New Name:">
+    <input class="btn btn-primary" type="submit" value="update">
+</form>
+</h3>

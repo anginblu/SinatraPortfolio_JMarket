@@ -1,0 +1,12 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+<h1>Create a New Online Store</h1>
+
+<form action="/stores" method="POST">
+  <label> Store Name </label>
+  <input type="text" name="store_name"> </br>
+
+  <input class="btn btn-primary" type="submit" value="create">
+</form>
