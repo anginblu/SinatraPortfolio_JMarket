@@ -5,9 +5,11 @@
   <a href="/stores/<%=@store.id%>/delete">Click to close your store, <%= @store.name %></a> <br>
 <%end%>
 
-<form action="/products/new" method="post">
-  Click to add a new product to this store, <input class="btn btn-primary" type="submit" name="store" value="<%=@store.name%>">
-</form>
+<% if logged_in? && current_user == @store.user %>
+  <form action="/products/new" method="post">
+    Click to add a new product to this store, <input class="btn btn-primary" type="submit" name="store" value="<%=@store.name%>">
+  </form>
+<%end%>
 
 <% if !@store.products.empty?%>
   <h4>Products in this store:</h4>

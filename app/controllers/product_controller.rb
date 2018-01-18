@@ -17,9 +17,13 @@ class ProductController < ApplicationController
   end
 
   post "/products" do
-    @product = Product.create(name: params[:product_name], price: params[:price], user_id: current_user)
-    update_stores_for_product
-    redirect "/products/#{@product.id}"
+    @product = Product.create(name: params[:product_name], price: params[:price], store_id: params[:store])
+    if @product.save
+      redirect "/products/#{@product.id}"
+    else
+      flash[:message] = "Creation failure: please retry!"
+      redirect "/products"
+    end
   end
 
   get "/products/:id/edit" do
@@ -31,13 +35,16 @@ class ProductController < ApplicationController
   post "/products/:id" do
     redirect_if_not_logged_in
     @product = Product.find(params[:id])
-    @product.update(name: params[:name], price: params[:price])
-    update_stores_for_product
-    redirect "/products/#{@product.id}"
+    @product.update(name: params[:name], price: params[:price], store_id: params[:store])
+    if @product.save
+      redirect "/products/#{@product.id}"
+    else
+      flash[:message] = "Update failure: please retry!"
+      redirect "/products#{@product.id}"
+    end
   end
 
   get "/products/:id" do
-    redirect_if_not_logged_in
     @product = Product.find(params[:id])
     erb :'products/show'
   end

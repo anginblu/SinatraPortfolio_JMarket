@@ -12,8 +12,13 @@ class StoreController < ApplicationController
   end
 
   post "/stores" do
-    @store = Store.create(name: params[:store_name], user_id: current_user)
-    redirect "/stores/#{@store.id}"
+    @store = Store.create(name: params[:store_name], user_id: current_user.id)
+    if @store.save
+      redirect "/stores/#{@store.id}"
+    else
+      flash[:message] = "Creation failure: please retry!"
+      redirect "/stores/new"
+    end
   end
 
   get "/stores/:id/edit" do
@@ -23,14 +28,17 @@ class StoreController < ApplicationController
   end
 
   post "/stores/:id" do
-    redirect_if_not_logged_in
     @store = Store.find(params[:id])
-    @store.update(params[:name])
-    redirect "/stores/#{@store.id}"
+    @store.update(name: params[:name])
+    if @store.save
+      redirect "/stores/#{@store.id}"
+    else
+      flash[:message] = "Update failure: please retry!"
+      redirect "/stores/#{@store.id}"
+    end
   end
 
   get "/stores/:id" do
-    redirect_if_not_logged_in
     @store = Store.find(params[:id])
     erb :'stores/show'
   end
