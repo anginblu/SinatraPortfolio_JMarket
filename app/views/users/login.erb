@@ -1,3 +1,10 @@
+<br>
+<h1>
+  <% if flash.has?(:warning) %>
+    <%= flash[:warning] %>
+  <% end %>
+</h1>
+
 <h1>Login to Jmarket!</h1>
 <form method="post" action="/login">
   <input type="text" name="username" placeholder="Username:"><br>
