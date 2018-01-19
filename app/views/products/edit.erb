@@ -13,7 +13,7 @@
 
   <label> Which Store does this belong to? </label>
   <% current_user.stores.each do |store| %>
-    <input type="checkbox" name="store" value="<%=store.id%>"<%='checked' if @product.store == store %>><%=store.name%></input><br>
+    <input type="radio" name="store" value="<%=store.id%>"<%='checked' if @product.store == store %>><%=store.name%> </input>
   <% end %>
 
   <input class="btn btn-primary" type="submit" value="update">

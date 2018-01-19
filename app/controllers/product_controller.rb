@@ -28,6 +28,7 @@ class ProductController < ApplicationController
 
   get "/products/:id/edit" do
     redirect_if_not_logged_in
+    redirect_if_not_current_user_product
     @product = Product.find(params[:id])
     erb :'products/edit'
   end
@@ -51,6 +52,7 @@ class ProductController < ApplicationController
 
   get "/products/:id/delete" do
     redirect_if_not_logged_in
+    redirect_if_not_current_user_product
     @product = Product.find(params[:id])
     @product.destroy
     redirect "/products"
