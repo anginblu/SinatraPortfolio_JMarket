@@ -32,6 +32,20 @@ class ApplicationController < Sinatra::Base
       User.find(session[:user_id])
     end
 
+    def redirect_if_not_current_user_store
+      if !current_user.stores.include?(Store.find(params[:id]))
+        flash[:warning] = "No authorized access! Please re-login as the right user with access."
+        redirect "/logout"
+      end
+    end
+
+    def redirect_if_not_current_user_product
+      if !current_user.stores.include?(Product.find(params[:id]).store)
+        flash[:warning] = "No authorized access! Please re-login as the right user with access."
+        redirect "/logout"
+      end
+    end
+
   end
 
 end
