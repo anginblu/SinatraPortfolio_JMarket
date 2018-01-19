@@ -23,6 +23,7 @@ class StoreController < ApplicationController
 
   get "/stores/:id/edit" do
     redirect_if_not_logged_in
+    redirect_if_not_current_user_store
     @store = Store.find(params[:id])
     erb :'stores/edit'
   end
@@ -45,6 +46,7 @@ class StoreController < ApplicationController
 
   get "/stores/:id/delete" do
     redirect_if_not_logged_in
+    redirect_if_not_current_user_store
     @store = Store.find(params[:id])
     @store.destroy
     redirect "/stores"
