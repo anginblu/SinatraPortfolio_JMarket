@@ -28,7 +28,20 @@ class StoreController < ApplicationController
     erb :'stores/edit'
   end
 
-  post "/stores/:id" do
+  # post "/stores/:id" do
+  #   @store = Store.find(params[:id])
+  #   @store.update(name: params[:name])
+  #   if @store.save
+  #     redirect "/stores/#{@store.id}"
+  #   else
+  #     flash[:message] = "Update failure: please retry!"
+  #     redirect "/stores/#{@store.id}"
+  #   end
+  # end
+
+  patch "/stores/:id" do
+    redirect_if_not_logged_in
+    redirect_if_not_current_user_store
     @store = Store.find(params[:id])
     @store.update(name: params[:name])
     if @store.save

@@ -33,8 +33,9 @@ class ProductController < ApplicationController
     erb :'products/edit'
   end
 
-  post "/products/:id" do
+  patch "/products/:id" do
     redirect_if_not_logged_in
+    redirect_if_not_current_user_product
     @product = Product.find(params[:id])
     @product.update(name: params[:name], price: params[:price], store_id: params[:store])
     if @product.save

@@ -6,6 +6,7 @@
 
 <h3>
 <form action="/stores/<%=@store.id %>" method="POST">
+    <input type="hidden" name="_method" value="PATCH">
     <input type="text" name="name" value="<%=@store.name %>" placeholder="New Name:">
     <input class="btn btn-primary" type="submit" value="update">
 </form>
